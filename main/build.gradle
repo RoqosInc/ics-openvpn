@@ -5,7 +5,7 @@
 
 import com.android.builder.model.ProductFlavor
 
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 repositories {
     jcenter()
@@ -31,6 +31,10 @@ android {
         versionName = "0.6.52"
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     sourceSets {
         main {
             assets.srcDirs = ['src/main/assets', 'ovpnlibs/assets']
@@ -49,6 +53,7 @@ android {
         release {
 
         }
+
     }
 
     /*
@@ -78,7 +83,11 @@ android {
 
       normal
 
+      modern{
+	
+	  minSdkVersion 14
 
+	}
                         
       /*                   
       x86 {
