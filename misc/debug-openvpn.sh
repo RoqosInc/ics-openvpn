@@ -1,5 +1,5 @@
 #!/bin/bash
-#NDK_DEBUG=1 ndk-build -j8
+#NDK_DEBUG=1 ndk-build -j8 -
 # Quick and dirty from ndk-gdb
 
 . ${ANDROID_NDK_HOME}/build/tools/ndk-common.sh
