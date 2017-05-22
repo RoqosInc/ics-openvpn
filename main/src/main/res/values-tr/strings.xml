@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">TLS sunucu sertifikası bekle</string>
   <string name="remote_tlscn_check_summary">Uzak Sunucu Sertifika Konu DN\'sini denetler</string>
   <string name="remote_tlscn_check_title">Sertifika Makine Adı Denetimi</string>
-  <string name="enter_tlscn_dialog">Uzak sertifika DN\'sini doğrulamak için kullanılan denetimi belirtin (örn. C=TR, L=Ankara, OU=IP Sağlayıcı, CN=openvpn.blinkt.de)\n\nTam DN veya RDN\'yi belirtin (örnekte openvpn.blinkt.de) veya doğrulama için bir RDP ön eki.\n\nRDN ön eki kullanıldığında \"Sunucu\" \"Sunucu-1\" ve \"Sunucu-2\" ile eşleşir\n\nMetin alanını boş bırakmak, RDN\'i sunucu makine adına karşı denetleyecektir.\n\nDaha fazla bilgi için bkz. OpenVPN 2.3.1+ man sayfası konusu —verify-x509-name</string>
+  <string name="enter_tlscn_dialog">Uzak sertifika DN\'sini doğrulamak için kullanılan denetimi belirtin (örn. C=TR, L=Ankara, OU=IP Sağlayıcı, CN=openvpnlib.roqos.com)\n\nTam DN veya RDN\'yi belirtin (örnekte openvpnlib.roqos.com) veya doğrulama için bir RDP ön eki.\n\nRDN ön eki kullanıldığında \"Sunucu\" \"Sunucu-1\" ve \"Sunucu-2\" ile eşleşir\n\nMetin alanını boş bırakmak, RDN\'i sunucu makine adına karşı denetleyecektir.\n\nDaha fazla bilgi için bkz. OpenVPN 2.3.1+ man sayfası konusu —verify-x509-name</string>
   <string name="enter_tlscn_title">Uzak sertifika konusu</string>
   <string name="tls_key_auth">TLS Anahtar Kimlik Doğrulamasını etkinleştirir</string>
   <string name="tls_auth_file">TLS Kimlik Doğrulama Dosyası</string>
@@ -312,7 +312,7 @@
   <string name="logview_options">Görünüm seçenekleri</string>
   <string name="unhandled_exception">Kural dışı durum: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed"> Android cihazınız root\'lu ise &lt;a href=\"http://xposed.info/\"&gt;Xposed çalışma çerçevesini&lt;/a&gt; ve &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;VPN Pencere onay modülünü&lt;/a&gt; kendi sorumluluğunuzda yükleyebilirsiniz\"</string>
+  <string name="faq_system_dialog_xposed"> Android cihazınız root\'lu ise &lt;a href=\"http://xposed.info/\"&gt;Xposed çalışma çerçevesini&lt;/a&gt; ve &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;VPN Pencere onay modülünü&lt;/a&gt; kendi sorumluluğunuzda yükleyebilirsiniz\"</string>
   <string name="full_licenses">Tam lisanslar</string>
   <string name="blocklocal_summary">Doğrudan yerel arabirimlere bağlı ağlar VPN üzerinden yönlendirilmez. Bu seçenekteki işaretin kaldırılması, yerel ağlar için amaçlanmış tüm trafiği VPN\'e yönlendirir.</string>
   <string name="blocklocal_title">Yerel ağlar için VPN\'i yoksay</string>

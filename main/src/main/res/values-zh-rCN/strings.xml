@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">需要 TLS 服务器证书</string>
   <string name="remote_tlscn_check_summary">检查远程服务器证书的 DN 属性</string>
   <string name="remote_tlscn_check_title">证书主机名检查</string>
-  <string name="enter_tlscn_dialog">勾选此项将验证远程证书的 DN 属性（例：C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de）\n\n输入完整的 DN 或者 RDN 以便进行验证。\n\nRDN前缀 \"Server\" 可以匹配 \"Server-1\" 以及 \"SERVER-2\"\n\n若留空则将仅验证 RDN 而不验证主机名。\n\n有关更多信息请查看 OpenVPN 2.3.1+ 参考手册的 --verify-x509-name 小节</string>
+  <string name="enter_tlscn_dialog">勾选此项将验证远程证书的 DN 属性（例：C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com）\n\n输入完整的 DN 或者 RDN 以便进行验证。\n\nRDN前缀 \"Server\" 可以匹配 \"Server-1\" 以及 \"SERVER-2\"\n\n若留空则将仅验证 RDN 而不验证主机名。\n\n有关更多信息请查看 OpenVPN 2.3.1+ 参考手册的 --verify-x509-name 小节</string>
   <string name="enter_tlscn_title">远程证书主题</string>
   <string name="tls_key_auth">启用 TLS 密钥认证</string>
   <string name="tls_auth_file">TLS 认证文件</string>
@@ -313,7 +313,7 @@
   <string name="logview_options">查看选项</string>
   <string name="unhandled_exception">未处理的异常： %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">如果您的 Android 设备已经 root，您可以自担风险安装&lt;a href=\"http://xposed.info/\"&gt;Xposed 框架&lt;/a&gt; 和 &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;VPN 对话框确认模块&lt;/a&gt;</string>
+  <string name="faq_system_dialog_xposed">如果您的 Android 设备已经 root，您可以自担风险安装&lt;a href=\"http://xposed.info/\"&gt;Xposed 框架&lt;/a&gt; 和 &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;VPN 对话框确认模块&lt;/a&gt;</string>
   <string name="full_licenses">完整授权</string>
   <string name="blocklocal_summary">不会将网络直接连接到本地接口路由通过 VPN。取消选中此选项会将缩进到 VPN 的本地网络的所有流量重都定向。</string>
   <string name="blocklocal_title">对本地地址绕过 VPN</string>

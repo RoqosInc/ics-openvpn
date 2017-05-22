@@ -7,14 +7,14 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="de.blinkt.openvpn">
+    package="com.roqos.openvpnlib">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />-->
+    <!-- <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> -->
 
     <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
 
@@ -54,6 +54,7 @@
         <activity
             android:name=".activities.MainActivity"
             tools:ignore="ExportedActivity">
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,6 +62,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
 
         <service
@@ -76,7 +78,7 @@
             tools:ignore="ExportedService">
 
             <intent-filter>
-                <action android:name="de.blinkt.openvpn.api.IOpenVPNAPIService" />
+                <action android:name="com.roqos.openvpnlib.api.IOpenVPNAPIService" />
             </intent-filter>
         </service>
 
@@ -170,7 +172,7 @@
 
         <provider
             android:name=".FileProvider"
-            android:authorities="de.blinkt.openvpn.FileProvider"
+            android:authorities="com.roqos.openvpnlib.FileProvider"
             android:exported="true"
             android:grantUriPermissions="true"
             tools:ignore="ExportedContentProvider" />

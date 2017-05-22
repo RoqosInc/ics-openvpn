@@ -71,7 +71,7 @@
                 android:layout_toStartOf="@id/portnumber"
                 android:inputType="textUri"
                 android:singleLine="true"
-                android:text="openvpn.blinkt.de"
+                android:text="openvpnlib.roqos.com"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 tools:ignore="HardcodedText" />
 

@@ -11,7 +11,7 @@ OpenVPN for Android is distributed under the GPL license version 2 (see Below)
 with the following clarification/additional terms of what constitues "deriviate work":
 
 Using/including any part of ics-openvpn, especially using/including any part of the
-de.blinkt.openvpn class hierarchy, creates derivative work of ics-openvpn.
+com.roqos.openvpnlib class hierarchy, creates derivative work of ics-openvpn.
 The normal definitions of derivative additionally apply.
 
 If you need a non GPLv2 license of the source please contact me.

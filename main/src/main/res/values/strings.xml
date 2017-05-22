@@ -65,7 +65,7 @@
     <string name="check_remote_tlscert_title">Expect TLS server certificate</string>
     <string name="remote_tlscn_check_summary">Checks the Remote Server Certificate Subject DN</string>
     <string name="remote_tlscn_check_title">Certificate Hostname Check</string>
-    <string name="enter_tlscn_dialog">Specify the check used to verify the remote certificate DN (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de)\n\nSpecify the complete DN or the RDN (openvpn.blinkt.de in the example) or an RDN prefix for verification.\n\nWhen using RDN prefix \"Server\" matches \"Server-1\" and \"Server-2\"\n\nLeaving the text field empty will check the RDN against the server hostname.\n\nFor more details see the OpenVPN 2.3.1+ manpage under —verify-x509-name</string>
+    <string name="enter_tlscn_dialog">Specify the check used to verify the remote certificate DN (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com)\n\nSpecify the complete DN or the RDN (openvpnlib.roqos.com in the example) or an RDN prefix for verification.\n\nWhen using RDN prefix \"Server\" matches \"Server-1\" and \"Server-2\"\n\nLeaving the text field empty will check the RDN against the server hostname.\n\nFor more details see the OpenVPN 2.3.1+ manpage under —verify-x509-name</string>
     <string name="enter_tlscn_title">Remote certificate subject</string>
     <string name="tls_key_auth">Enables the TLS Key Authentication</string>
     <string name="tls_auth_file">TLS Auth File</string>
@@ -310,7 +310,7 @@
     <string name="logview_options">View options</string>
     <string name="unhandled_exception">Unhandled exception: %1$s\n\n%2$s</string>
     <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-    <string name="faq_system_dialog_xposed">If you have rooted your Android device you can install the &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; and a the &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt; at your own risk"</string>
+    <string name="faq_system_dialog_xposed">If you have rooted your Android device you can install the &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; and a the &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt; at your own risk"</string>
     <string name="full_licenses">Full licenses</string>
     <string name="blocklocal_summary">Networks directly connected to the local interfaces will not be routed over the VPN. Deselecting this option will redirect all traffic intented for local networks to the VPN.</string>
     <string name="blocklocal_title">Bypass VPN for local networks</string>

@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">Очікувати TLS сертифікат сервера</string>
   <string name="remote_tlscn_check_summary">Перевірка DN об\'єкта віддаленого сертифіката</string>
   <string name="remote_tlscn_check_title">Перевірка імені вузла сертифікату</string>
-  <string name="enter_tlscn_dialog">Перемикач способу перевірки DN сертифікату (eg C = DE, L = Paderborn, OU = Avian IP Carriers, CN = openvpn.blinkt.de) \n \nМожливо значення: повний DN, RDN (для прикладу openvpn.blinkt.de) або тільки преффікс RDN для перевірки. \n \nПрі використанні преффікса RDN, наприклад \"Server\", значення будуть \"Server-1\", \"Server-2\" і т.д. \n \nПрі порожньому текстовому полі перевірка проводитиметься по імені хоста. \n \nДля подробиць дивіться керівництво для OpenVPN 2.3.1 +, розділ-verify-x509-name</string>
+  <string name="enter_tlscn_dialog">Перемикач способу перевірки DN сертифікату (eg C = DE, L = Paderborn, OU = Avian IP Carriers, CN = openvpnlib.roqos.com) \n \nМожливо значення: повний DN, RDN (для прикладу openvpnlib.roqos.com) або тільки преффікс RDN для перевірки. \n \nПрі використанні преффікса RDN, наприклад \"Server\", значення будуть \"Server-1\", \"Server-2\" і т.д. \n \nПрі порожньому текстовому полі перевірка проводитиметься по імені хоста. \n \nДля подробиць дивіться керівництво для OpenVPN 2.3.1 +, розділ-verify-x509-name</string>
   <string name="enter_tlscn_title">Об\'єкт віддаленого сертифіката</string>
   <string name="tls_key_auth">Увімкнути автентифікацію по TLS ключу</string>
   <string name="tls_auth_file">Файл авторизації TLS</string>
@@ -311,7 +311,7 @@
   <string name="logview_options">Подивитися налаштування</string>
   <string name="unhandled_exception">Невідома помилка: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">Якщо на Вашому пристрої встановлені root права, Ви можете встановити &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; та  &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt;  на свій страх і ризик\"</string>
+  <string name="faq_system_dialog_xposed">Якщо на Вашому пристрої встановлені root права, Ви можете встановити &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; та  &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt;  на свій страх і ризик\"</string>
   <string name="full_licenses">Повні ліцензії</string>
   <string name="blocklocal_summary">Мережі, безпосередньо доступні через локальний інтерфейс  не направлятимуться на VPN. Відключіть цю опцію щоб направити увесь трафік через VPN.</string>
   <string name="blocklocal_title">Не використовувати VPN для локальних мереж</string>

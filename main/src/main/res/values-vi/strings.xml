@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">Đợi chứng chỉ máy chủ TLS</string>
   <string name="remote_tlscn_check_summary">Kiểm tra Chứng chỉ máy chủ từ xa</string>
   <string name="remote_tlscn_check_title">Kiểm tra chứng chỉ tên miền</string>
-  <string name="enter_tlscn_dialog">Xác định để kiểm tra sử dụng chứng nhận từ xa DN (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de)\n\nHoàn chỉnh các DN hoặc RDN (openvpn.blinkt.de làm ví dụ) hoặc một tiền tố RDN để xác minh.\n\nKhi dùng tiền tố RDN phù hợp \"Server-1\" và \"Server-2\"\n\nĐể trường văn bản trống sẽ kiểm tra tiền tố RDN phản biện tên miền máy chủ. \n\nĐể biết thêm chi tiết xem tại phần quản lý OpenVPN 2.3.1+ bên dưới —xác minh-x509-tên</string>
+  <string name="enter_tlscn_dialog">Xác định để kiểm tra sử dụng chứng nhận từ xa DN (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com)\n\nHoàn chỉnh các DN hoặc RDN (openvpnlib.roqos.com làm ví dụ) hoặc một tiền tố RDN để xác minh.\n\nKhi dùng tiền tố RDN phù hợp \"Server-1\" và \"Server-2\"\n\nĐể trường văn bản trống sẽ kiểm tra tiền tố RDN phản biện tên miền máy chủ. \n\nĐể biết thêm chi tiết xem tại phần quản lý OpenVPN 2.3.1+ bên dưới —xác minh-x509-tên</string>
   <string name="enter_tlscn_title">Chủ đề chứng chỉ từ xa</string>
   <string name="tls_key_auth">Cho phép xác thực khóa TLS</string>
   <string name="tls_auth_file">Tập tin chứng thực TLS</string>
@@ -312,7 +312,7 @@
   <string name="logview_options">Xem tùy chọn</string>
   <string name="unhandled_exception">Tùy chọn ngoại lệ: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">Nếu bạn đã root thiết bị Android bạn có thể cài đặt &lt;href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; và &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;Hộp thoại xác nhận VPN module&lt;/a&gt; để xác nhận nguy cơ\"</string>
+  <string name="faq_system_dialog_xposed">Nếu bạn đã root thiết bị Android bạn có thể cài đặt &lt;href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; và &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;Hộp thoại xác nhận VPN module&lt;/a&gt; để xác nhận nguy cơ\"</string>
   <string name="full_licenses">Giấy phép đầy đủ</string>
   <string name="blocklocal_summary">Mạng kết nối trực tiếp đến giao diện địa phương sẽ không định tuyến qua VPN. Bỏ tùy chọn này sẽ chuyển hướng tất cả lưu lượng truy cập cho mạng nội bộ đến VPN.</string>
   <string name="blocklocal_title">Bỏ qua VPN cho mạng địa phương</string>

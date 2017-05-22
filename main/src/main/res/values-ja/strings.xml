@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">TLSサーバー証明書を要求する</string>
   <string name="remote_tlscn_check_summary">リモートサーバー証明書の所有者識別子(Subject DN)を確認します。</string>
   <string name="remote_tlscn_check_title">証明書のホスト名を確認する</string>
-  <string name="enter_tlscn_dialog">リモート証明書の照合に使用する識別名(DN)を指定します。(例: C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de)\n\n完全な識別名(DN)または相対識別名(RDN)、あるいは相対識別名のプリフィクスを指定します。\n\nたとえば相対識別名のプリフィクスとして\"Server\"を指定すると、\"Server-1\"と\"Server-2\"にマッチします。\n\n空欄にした場合は相対識別名とサーバのホスト名をチェックします。\n\n詳細についてはOpenVPN 2.3.1以降のマニュアルの「--verify-x509-name」の項を参照してください。</string>
+  <string name="enter_tlscn_dialog">リモート証明書の照合に使用する識別名(DN)を指定します。(例: C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com)\n\n完全な識別名(DN)または相対識別名(RDN)、あるいは相対識別名のプリフィクスを指定します。\n\nたとえば相対識別名のプリフィクスとして\"Server\"を指定すると、\"Server-1\"と\"Server-2\"にマッチします。\n\n空欄にした場合は相対識別名とサーバのホスト名をチェックします。\n\n詳細についてはOpenVPN 2.3.1以降のマニュアルの「--verify-x509-name」の項を参照してください。</string>
   <string name="enter_tlscn_title">リモート証明書サブジェクト</string>
   <string name="tls_key_auth">TLS鍵認証を有効にする</string>
   <string name="tls_auth_file">TLS 認証ファイル</string>
@@ -348,7 +348,7 @@ Android 4.4以上はポリシールーティングを使用します。route/ifc
   <string name="logview_options">オプションを表示</string>
   <string name="unhandled_exception">未処理の例外: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">もしあなたがデバイスをroot化しているのであれば、 &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt;と&lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt; を自己責任においてインストールできます</string>
+  <string name="faq_system_dialog_xposed">もしあなたがデバイスをroot化しているのであれば、 &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt;と&lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;VPN Dialog confirm module&lt;/a&gt; を自己責任においてインストールできます</string>
   <string name="full_licenses">完全なライセンス告知</string>
   <string name="blocklocal_summary">ローカルインターフェイスに直接接続されているネットワークはVPNを経由しません。
 このオプションを外すとローカルネットワーク宛のすべての通信をVPNにリダイレクトします。</string>

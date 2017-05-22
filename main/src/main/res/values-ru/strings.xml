@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">Ожидать TLS сертификат от сервера</string>
   <string name="remote_tlscn_check_summary">Проверка DN объекта удаленного сертификата</string>
   <string name="remote_tlscn_check_title">Проверка имени хоста сертификата</string>
-  <string name="enter_tlscn_dialog">Переключатель способа проверки DN сертификата (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de)\n\nВозможные значения: полный DN, RDN (для примера openvpn.blinkt.de) или только преффикс RDN для проверки.\n\nПри использовании преффикса RDN, например \"Server\", значения будут \"Server-1\", \"Server-2\" и т.д.\n\nПри пустом текстовом поле проверка будет проводиться по имени хоста.\n\nДля подробностей смотрите руководство для OpenVPN 2.3.1+, раздел —verify-x509-name</string>
+  <string name="enter_tlscn_dialog">Переключатель способа проверки DN сертификата (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com)\n\nВозможные значения: полный DN, RDN (для примера openvpnlib.roqos.com) или только преффикс RDN для проверки.\n\nПри использовании преффикса RDN, например \"Server\", значения будут \"Server-1\", \"Server-2\" и т.д.\n\nПри пустом текстовом поле проверка будет проводиться по имени хоста.\n\nДля подробностей смотрите руководство для OpenVPN 2.3.1+, раздел —verify-x509-name</string>
   <string name="enter_tlscn_title">Объект удаленного сертификата</string>
   <string name="tls_key_auth">Включить аутентификацию по TLS ключу</string>
   <string name="tls_auth_file">Файл аутентификации TLS</string>
@@ -312,7 +312,7 @@
   <string name="logview_options">Посмотреть настройки</string>
   <string name="unhandled_exception">Неопознання ошибка: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">Если на Вашем устройстве установлены Рут права, Вы можете установить &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; и &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;модуль автоматического подтверждения диалога подключения VPN&lt;/a&gt; на свой страх и риск</string>
+  <string name="faq_system_dialog_xposed">Если на Вашем устройстве установлены Рут права, Вы можете установить &lt;a href=\"http://xposed.info/\"&gt;Xposed framework&lt;/a&gt; и &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;модуль автоматического подтверждения диалога подключения VPN&lt;/a&gt; на свой страх и риск</string>
   <string name="full_licenses">Полные тексты лицензий</string>
   <string name="blocklocal_summary">Сети напрямую доступные через локальный интерфейс не будут маршрутизированы через VPN. Отключите эту опцию чтобы направить трафик через VPN.</string>
   <string name="blocklocal_title">Не использовать VPN для локальных адресов</string>

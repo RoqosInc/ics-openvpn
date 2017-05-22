@@ -74,10 +74,10 @@ A: public class StartOpenVPNActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-    	final String EXTRA_NAME = "de.blinkt.openvpn.shortcutProfileName";
+    	final String EXTRA_NAME = "com.roqos.openvpnlib.shortcutProfileName";
 
         Intent shortcutIntent = new Intent(Intent.ACTION_MAIN);
-		shortcutIntent.setClassName("de.blinkt.openvpn", "de.blinkt.openvpn.LaunchVPN");
+		shortcutIntent.setClassName("com.roqos.openvpnlib", "com.roqos.openvpnlib.LaunchVPN");
 		shortcutIntent.putExtra(EXTRA_NAME,"upb ssl");
 		startActivity(shortcutIntent);
     }
@@ -85,10 +85,10 @@ A: public class StartOpenVPNActivity extends Activity {
 
 or from the shell:
 
-am start -a android.intent.action.MAIN -n de.blinkt.openvpn/.LaunchVPN -e de.blinkt.openvpn.shortcutProfileName Home
+am start -a android.intent.action.MAIN -n com.roqos.openvpnlib/.LaunchVPN -e com.roqos.openvpnlib.shortcutProfileName Home
 
 Q: How to control the app from an external app?
 
-A: There is an AIDL interface. See src/de/blinkt/openvpn/api/IOpenVPNAPIService.aidl. See the normal Android documentation how to use AIDL. 
+A: There is an AIDL interface. See src/com/roqos/openvpnlib/api/IOpenVPNAPIService.aidl. See the normal Android documentation how to use AIDL.
    See also the example project under remoteExample.
    

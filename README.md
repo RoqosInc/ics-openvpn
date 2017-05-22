@@ -17,7 +17,7 @@ Even if you are no programmer you can help by translating the OpenVPN client int
 
 FAQ
 -----
-You can find the FAQ here (same as in app): http://ics-openvpn.blinkt.de/FAQ.html
+You can find the FAQ here (same as in app): http://ics-openvpnlib.roqos.com/FAQ.html
 
 Note to administrators
 ------------------------
@@ -43,7 +43,7 @@ Please that OpenVPN used by this project is under GPLv2.
 
 If you cannot or do not want to use the Play Store you can [download the apk files directly](http://plai.de/android/) . 
 
-The F-Droid project also [builds and distributes the application](https://f-droid.org/repository/browse/?fdid=de.blinkt.openvpn). 
+The F-Droid project also [builds and distributes the application](https://f-droid.org/repository/browse/?fdid=com.roqos.openvpnlib).
 
 If you want to donate you can donate to [arne-paypal@rfc2549.org via paypal](https://www.paypal.com/cgi-bin/webscr?hosted_button_id=R2M6ZP9AF25LS&cmd=_s-xclick).
 

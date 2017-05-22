@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">Pričakuj potrdilo str. TLS</string>
   <string name="remote_tlscn_check_summary">Preveri DN zadeve potrdila oddaljenega strežnika</string>
   <string name="remote_tlscn_check_title">Preveri ime gost. potrdila</string>
-  <string name="enter_tlscn_dialog">Določite preverjanje, ki naj se uporabi za preverjanje DN-a oddaljenega potrdila (npr. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de).\n\nDoločite celoten DN ali RDN (npr. openvpn.blinkt.de) ali predpono RDN-a za preverjanje.\n\nKadar uporabljate predpono RDN, se \"Strežnik\" primerja s \"Strežnik-1\" in \"Strežnik-2\".\n\nČe pustite besedilno polje prazno, bo RDN preverjen z imenom gostitelja.\n\nZa več podatkov glejte OpenVPN 2.3.1 + stran man v —verify-x509-name.</string>
+  <string name="enter_tlscn_dialog">Določite preverjanje, ki naj se uporabi za preverjanje DN-a oddaljenega potrdila (npr. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com).\n\nDoločite celoten DN ali RDN (npr. openvpnlib.roqos.com) ali predpono RDN-a za preverjanje.\n\nKadar uporabljate predpono RDN, se \"Strežnik\" primerja s \"Strežnik-1\" in \"Strežnik-2\".\n\nČe pustite besedilno polje prazno, bo RDN preverjen z imenom gostitelja.\n\nZa več podatkov glejte OpenVPN 2.3.1 + stran man v —verify-x509-name.</string>
   <string name="enter_tlscn_title">Zadeva oddaljenega potrdila</string>
   <string name="tls_key_auth">Omogoči overitev ključa TLS</string>
   <string name="tls_auth_file">Datoteka overitve TLS</string>
@@ -312,7 +312,7 @@
   <string name="logview_options">Možnosti pogleda</string>
   <string name="unhandled_exception">Neobravnavana izjema: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">Če imate na svoji napravi skrbniški dostop, lahko na svojo odgovornost namestite &lt;a href=\"http://xposed.info/\"&gt;ogrodje Xposed&lt;/a&gt; in &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;Modul za potrditev pog. okna VPN&lt;/a&gt;.</string>
+  <string name="faq_system_dialog_xposed">Če imate na svoji napravi skrbniški dostop, lahko na svojo odgovornost namestite &lt;a href=\"http://xposed.info/\"&gt;ogrodje Xposed&lt;/a&gt; in &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;Modul za potrditev pog. okna VPN&lt;/a&gt;.</string>
   <string name="full_licenses">Polna dovoljenja</string>
   <string name="blocklocal_summary">Omrežja, ki so neposredno povezana s krajevnimi vmesniki, ne bodo usmerjena preko VPN-a. Odstranitev izbire te možnosti bo preusmerila ves promet namenjen krajevnim omrežjem v VPN.</string>
   <string name="blocklocal_title">Zaobidi VPN za kraj. omr.</string>

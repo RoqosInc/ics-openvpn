@@ -67,7 +67,7 @@
   <string name="check_remote_tlscert_title">Attesa di un certificato server TLS</string>
   <string name="remote_tlscn_check_summary">Controlla il soggetto DN del certificato del server remoto</string>
   <string name="remote_tlscn_check_title">Verifica il certificato dell\'Host</string>
-  <string name="enter_tlscn_dialog">Specifica il controllo da effettuare per verificare il certificato DN remoto  (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpn.blinkt.de)\n\nPer verifica specifica il DN o RDN completo (nell\'esempio openvpn.blinkt.de) oppure un prefisso RDN.\n\nQuando usi un prefisso RDN \"Server\" è valido per \"Server-1\" e \"Server-2\"\n\nLasciando la casella vuota verrà controllato l\'RDN con l\'hostname del server.\n\nPer maggiori informazioni consulta la manpage di OpenVPN 2.3.1+ sotto la voce  —verify-x509-name</string>
+  <string name="enter_tlscn_dialog">Specifica il controllo da effettuare per verificare il certificato DN remoto  (e.g. C=DE, L=Paderborn, OU=Avian IP Carriers, CN=openvpnlib.roqos.com)\n\nPer verifica specifica il DN o RDN completo (nell\'esempio openvpnlib.roqos.com) oppure un prefisso RDN.\n\nQuando usi un prefisso RDN \"Server\" è valido per \"Server-1\" e \"Server-2\"\n\nLasciando la casella vuota verrà controllato l\'RDN con l\'hostname del server.\n\nPer maggiori informazioni consulta la manpage di OpenVPN 2.3.1+ sotto la voce  —verify-x509-name</string>
   <string name="enter_tlscn_title">Soggetto del certificato remoto</string>
   <string name="tls_key_auth">Abilita l\'autenticazione tramite TLS</string>
   <string name="tls_auth_file">File di autenticazione TLS</string>
@@ -313,7 +313,7 @@ Effettuata la lettura del file di configurazione</string>
   <string name="logview_options">Visualizza opzioni</string>
   <string name="unhandled_exception">Eccezione non gestita: %1$s\n\n%2$s</string>
   <string name="unhandled_exception_context">%3$s: %1$s\n\n%2$s</string>
-  <string name="faq_system_dialog_xposed">Se il tuo dispositivo Android ha il root allora è possibile installare il &lt;a href=\"http://xposed.info/\"&gt;framework Xposed&lt;/a&gt; e il &lt;a href=\"http://repo.xposed.info/module/de.blinkt.vpndialogxposed\"&gt;modulo di conferma VPN Dialog&lt;/a&gt; a proprio rischio e pericolo\"</string>
+  <string name="faq_system_dialog_xposed">Se il tuo dispositivo Android ha il root allora è possibile installare il &lt;a href=\"http://xposed.info/\"&gt;framework Xposed&lt;/a&gt; e il &lt;a href=\"http://repo.xposed.info/module/com.roqos.vpndialogxposed\"&gt;modulo di conferma VPN Dialog&lt;/a&gt; a proprio rischio e pericolo\"</string>
   <string name="full_licenses">Licenze complete</string>
   <string name="blocklocal_summary">Le reti direttamente collegate alle interfacce locali non verranno instradate attraverso la VPN. Deselezionando questa opzione si inoltrerà tutto il traffico dalle reti locali alla VPN.</string>
   <string name="blocklocal_title">Ignora VPN per le reti locali</string>
