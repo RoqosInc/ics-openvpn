@@ -88,6 +88,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private Handler guiHandler;
     private Toast mlastToast;
     private Runnable mOpenVPNThread;
+    public static Boolean ENABLE_LOG_WINDOW = false;
 
     // From: http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
     public static String humanReadableByteCount(long bytes, boolean mbit) {
@@ -283,6 +284,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     PendingIntent getLogPendingIntent() {
         // Let the configure Button show the Log
         Intent intent = getPackageManager().getLaunchIntentForPackage("com.roqos.roqosvpn");
+        if(OpenVPNService.ENABLE_LOG_WINDOW) intent = new Intent(getApplicationContext(), LogWindow.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent startLW = PendingIntent.getActivity(this, 0, intent, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
