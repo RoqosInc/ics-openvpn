@@ -184,8 +184,11 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         Notification notification = nbuilder.getNotification();
 
 
-        mNotificationManager.notify(OPENVPN_STATUS, notification);
-        startForeground(OPENVPN_STATUS, notification);
+        if(status == LEVEL_CONNECTED) {
+            mNotificationManager.notify(OPENVPN_STATUS, notification);
+            startForeground(OPENVPN_STATUS, notification);
+        }
+
 
         // Check if running on a TV
         if (runningOnAndroidTV() && !lowpriority)
