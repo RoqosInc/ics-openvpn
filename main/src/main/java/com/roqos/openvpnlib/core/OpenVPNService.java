@@ -184,7 +184,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         Notification notification = nbuilder.getNotification();
 
 
-        if(status == LEVEL_CONNECTED) {
+        if(OpenVPNService.ENABLE_LOG_WINDOW || status == LEVEL_CONNECTED) {
             mNotificationManager.notify(OPENVPN_STATUS, notification);
             startForeground(OPENVPN_STATUS, notification);
         }
