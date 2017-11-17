@@ -936,12 +936,14 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
                 // with a notifcation
                 return;
             } else if (level == LEVEL_CONNECTED) {
+                ProfileManager.setAlwaysOn(getApplicationContext(), true);
                 mDisplayBytecount = true;
                 mConnecttime = System.currentTimeMillis();
                 if (!runningOnAndroidTV())
                     lowpriority = true;
             } else {
                 mDisplayBytecount = false;
+                ProfileManager.setAlwaysOn(getApplicationContext(), false);
             }
 
             // Other notifications are shown,

@@ -76,6 +76,13 @@ public class ProfileManager {
 
     }
 
+    public static void setAlwaysOn(Context context, boolean enable) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor prefsedit = prefs.edit();
+        prefsedit.putBoolean("restartvpnonboot", enable);
+        prefsedit.apply();
+    }
+
     public static VpnProfile getLastConnectedProfile(Context c, boolean onBoot) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
 
