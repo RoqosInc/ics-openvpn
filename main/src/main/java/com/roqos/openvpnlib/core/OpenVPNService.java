@@ -89,6 +89,12 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private Toast mlastToast;
     private Runnable mOpenVPNThread;
     public static Boolean ENABLE_LOG_WINDOW = false;
+    public static String APP_ID = "com.roqos.roqosvpn";
+    private boolean isConnected = false;
+
+    public boolean isVPNConnected() {
+        return isConnected;
+    }
 
     // From: http://stackoverflow.com/questions/3758606/how-to-convert-byte-size-into-human-readable-format-in-java
     public static String humanReadableByteCount(long bytes, boolean mbit) {
@@ -286,7 +292,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     PendingIntent getLogPendingIntent() {
         // Let the configure Button show the Log
-        Intent intent = getPackageManager().getLaunchIntentForPackage("com.roqos.roqosvpn");
+        Intent intent = getPackageManager().getLaunchIntentForPackage(OpenVPNService.APP_ID);
         if(OpenVPNService.ENABLE_LOG_WINDOW) intent = new Intent(getApplicationContext(), LogWindow.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent startLW = PendingIntent.getActivity(this, 0, intent, 0);
@@ -356,12 +362,17 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
             return START_NOT_STICKY;
         }
 
-
         if (intent != null && START_SERVICE.equals(intent.getAction()))
             return START_NOT_STICKY;
         if (intent != null && START_SERVICE_STICKY.equals(intent.getAction())) {
             return START_REDELIVER_INTENT;
         }
+
+        // Always show notification here to avoid problem with startForeground timeout
+        VpnStatus.logInfo(R.string.building_configration);
+        VpnStatus.updateStateString("VPN_GENERATE_CONFIG", "", R.string.building_configration, ConnectionStatus.LEVEL_START);
+        showNotification(VpnStatus.getLastCleanLogMessage(this),
+                VpnStatus.getLastCleanLogMessage(this), false, 0, ConnectionStatus.LEVEL_START);
 
         if (intent != null && intent.hasExtra(getPackageName() + ".profileUUID")) {
             String profileUUID = intent.getStringExtra(getPackageName() + ".profileUUID");
@@ -937,11 +948,13 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
                 return;
             } else if (level == LEVEL_CONNECTED) {
                 ProfileManager.setAlwaysOn(getApplicationContext(), true);
+                isConnected = true;
                 mDisplayBytecount = true;
                 mConnecttime = System.currentTimeMillis();
                 if (!runningOnAndroidTV())
                     lowpriority = true;
             } else {
+                isConnected = false;
                 mDisplayBytecount = false;
                 ProfileManager.setAlwaysOn(getApplicationContext(), false);
             }
