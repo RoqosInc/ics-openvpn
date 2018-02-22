@@ -227,21 +227,21 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private int getIconByConnectionStatus(ConnectionStatus level) {
         switch (level) {
             case LEVEL_CONNECTED:
-                return R.drawable.roqos_vpn_enabled;
+                return R.drawable.ic_roqos_vpn_enabled;
             case LEVEL_AUTH_FAILED:
             case LEVEL_NONETWORK:
             case LEVEL_NOTCONNECTED:
-                return R.drawable.roqos_vpn_disabled;
+                return R.drawable.ic_roqos_vpn_enabled;
             case LEVEL_CONNECTING_NO_SERVER_REPLY_YET:
             case LEVEL_WAITING_FOR_USER_INPUT:
-                return R.drawable.roqos_vpn;
+                return R.drawable.ic_roqos_vpn_enabled;
             case LEVEL_CONNECTING_SERVER_REPLIED:
-                return R.drawable.roqos_vpn_disabled;
+                return R.drawable.ic_roqos_vpn_enabled;
             case LEVEL_VPNPAUSED:
                 return android.R.drawable.ic_media_pause;
             case UNKNOWN_LEVEL:
             default:
-                return R.drawable.roqos_vpn_enabled;
+                return R.drawable.ic_roqos_vpn_enabled;
 
         }
     }
