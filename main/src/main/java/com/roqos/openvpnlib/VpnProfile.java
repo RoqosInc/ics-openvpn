@@ -282,7 +282,10 @@ public class VpnProfile implements Serializable, Cloneable {
         // Users are confused by warnings that are misleading...
         cfg += "ifconfig-nowarn\n";
 
-        cfg += "explicit-exit-notify\n";
+        if (mConnections[0].mUseUdp) {
+            cfg += "explicit-exit-notify\n";
+        }
+
 
         boolean useTLSClient = (mAuthenticationType != TYPE_STATICKEYS);
 
