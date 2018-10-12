@@ -8,7 +8,9 @@ package com.roqos.openvpnlib.core;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +28,6 @@ public class VPNLaunchHelper {
     private static final String OVPNCONFIGFILE = "android.conf";
 
 
-
     private static String writeMiniVPN(Context context) {
         String[] abis;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -38,36 +39,34 @@ public class VPNLaunchHelper {
         String nativeAPI = NativeUtils.getNativeAPI();
         if (!nativeAPI.equals(abis[0])) {
             VpnStatus.logWarning(R.string.abi_mismatch, Arrays.toString(abis), nativeAPI);
-            abis = new String[] {nativeAPI};
+            abis = new String[]{nativeAPI};
         }
 
-        for (String abi: abis) {
+        for (String abi : abis) {
 
-            File vpnExecutable = new File(context.getCacheDir(), getMiniVPNExecutableName() + "." + abi);
+            File vpnExecutable = new File(context.getCacheDir(), "c_" + getMiniVPNExecutableName() + "." + abi);
             if ((vpnExecutable.exists() && vpnExecutable.canExecute()) || writeMiniVPNBinary(context, abi, vpnExecutable)) {
                 return vpnExecutable.getPath();
             }
         }
 
-        return null;
-	}
+        throw new RuntimeException("Cannot find any execulte for this device's ABIs " + abis.toString());
+    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static String[] getSupportedABIsLollipop() {
         return Build.SUPPORTED_ABIS;
     }
 
-    private static String getMiniVPNExecutableName()
-    {
-        if (Build.VERSION.SDK_INT  >= Build.VERSION_CODES.JELLY_BEAN)
+    private static String getMiniVPNExecutableName() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
             return MINIPIEVPN;
         else
             return MININONPIEVPN;
     }
 
 
-    public static String[] replacePieWithNoPie(String[] mArgv)
-    {
+    public static String[] replacePieWithNoPie(String[] mArgv) {
         mArgv[0] = mArgv[0].replace(MINIPIEVPN, MININONPIEVPN);
         return mArgv;
     }
@@ -79,7 +78,7 @@ public class VPNLaunchHelper {
         String binaryName = writeMiniVPN(c);
         // Add fixed paramenters
         //args.add("/data/data/com.roqos.openvpnlib/lib/openvpn");
-        if(binaryName==null) {
+        if (binaryName == null) {
             VpnStatus.logError("Error writing minivpn binary");
             return null;
         }
@@ -98,8 +97,7 @@ public class VPNLaunchHelper {
 
             try {
                 mvpn = context.getAssets().open(getMiniVPNExecutableName() + "." + abi);
-            }
-            catch (IOException errabi) {
+            } catch (IOException errabi) {
                 VpnStatus.logInfo("Failed getting assets for archicture " + abi);
                 return false;
             }
@@ -107,16 +105,16 @@ public class VPNLaunchHelper {
 
             FileOutputStream fout = new FileOutputStream(mvpnout);
 
-            byte buf[]= new byte[4096];
+            byte buf[] = new byte[4096];
 
             int lenread = mvpn.read(buf);
-            while(lenread> 0) {
+            while (lenread > 0) {
                 fout.write(buf, 0, lenread);
                 lenread = mvpn.read(buf);
             }
             fout.close();
 
-            if(!mvpnout.setExecutable(true)) {
+            if (!mvpnout.setExecutable(true)) {
                 VpnStatus.logError("Failed to make OpenVPN executable");
                 return false;
             }
@@ -129,14 +127,26 @@ public class VPNLaunchHelper {
         }
 
     }
-	
 
-	public static void startOpenVpn(VpnProfile startprofile, Context context) {
-		Intent startVPN = startprofile.prepareStartService(context);
-		if(startVPN!=null)
-			context.startService(startVPN);
 
-	}
+    public static void startOpenVpn(VpnProfile startprofile, Context context) {
+        Log.d("TAG", "startOpenVpn: hehe");
+        SharedPreferences sharedPref = context.getSharedPreferences("PREF_LOG_WINDOW", Context.MODE_PRIVATE);
+        boolean enable = sharedPref.getBoolean("enable_log", false);
+
+        Intent startVPN = startprofile.prepareStartService(context);
+        startVPN.putExtra("enable", enable);
+
+        if (startVPN != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                //noinspection NewApi
+                context.startForegroundService(startVPN);
+            else
+                context.startService(startVPN);
+
+        }
+    }
+
 
     public static String getConfigFilePath(Context context) {
         return context.getCacheDir().getAbsolutePath() + "/" + OVPNCONFIGFILE;

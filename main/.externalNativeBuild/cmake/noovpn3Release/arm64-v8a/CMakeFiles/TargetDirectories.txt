@@ -1,0 +1,12 @@
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/ssl.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/nopie_openvpn.arm64-v8a.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/makeassetdir.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/pie_openvpn.arm64-v8a.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/openvpn.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/jbcrypto.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/crypto.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/opvpnutil.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/lz4.dir
+/Users/calvinphly/Desktop/RoqosInc/ics-openvpn/main/.externalNativeBuild/cmake/noovpn3Release/arm64-v8a/CMakeFiles/lzo.dir

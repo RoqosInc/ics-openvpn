@@ -108,6 +108,8 @@ def getVersionString(ver):
         return "4.4 (Kit Kat)"
     elif ver == "Build.VERSION_CODES.LOLLIPOP":
         return "5.0 (Lollipop)"
+    elif ver == "Build.VERSION_CODES.LOLLIPOP_MR1":
+        return "5.1 (Lollipop MR1)"
     else:
         return "API " + ver
 
@@ -159,7 +161,7 @@ def main():
     loadstrres("src/main/res/values/strings.xml","default")
     
     #faqdom = dom.parse("src/main/res/layout/faq.xml")
-    faqdom = open("src/main/java/com/roqos/openvpnlib/fragments/FaqFragment.java").readlines()
+    faqdom = open("src/main/java/de/blinkt/openvpn/fragments/FaqFragment.java").readlines()
     faq= genPage(faqdom,"default")
 
     open(faqpath + "/FAQ.html","w").write(template % {'content': faq})

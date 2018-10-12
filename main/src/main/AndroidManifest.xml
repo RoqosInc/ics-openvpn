@@ -1,10 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2012-2016 Arne Schwabe
   ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
-  -->
-
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.roqos.openvpnlib">
@@ -14,11 +11,11 @@
     <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.BIND_VPN_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!--<uses-permission android:name="android.permission.BIND_VPN_SERVICE"-->
+        <!--tools:ignore="ProtectedPermissions" />-->
 
-    <!-- <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" /> -->
-
-    <!-- <uses-permission android:name="com.android.vending.BILLING" /> -->
+    <!-- <uses-permission android:name="android.com.android.vending.billing" /> -->
 
     <uses-feature
         android:name="android.software.leanback"
@@ -27,98 +24,124 @@
         android:name="android.hardware.touchscreen"
         android:required="false" />
 
+
+
     <application
-        android:name=".core.ICSOpenVPNApplication"
+        android:name="com.roqos.openvpnlib.core.ICSOpenVPNApplication"
         android:allowBackup="true"
         android:banner="@mipmap/banner_tv"
         android:supportsRtl="true"
         android:theme="@style/blinkt"
         tools:ignore="UnusedAttribute">
-        <activity
-            android:name=".activities.VPNPreferences"
-            android:exported="false"
-            android:windowSoftInputMode="stateHidden" />
+
+
+        <meta-data android:name="android.content.APP_RESTRICTIONS"
+                   android:resource="@xml/app_restrictions" />
 
         <activity
-            android:name=".activities.DisconnectVPN"
+            android:name="com.roqos.openvpnlib.activities.VPNPreferences"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name="com.roqos.openvpnlib.activities.DisconnectVPN"
             android:autoRemoveFromRecents="true"
             android:excludeFromRecents="true"
             android:noHistory="true"
             android:taskAffinity=".DisconnectVPN"
             android:theme="@style/blinkt.dialog" />
-
         <activity
-            android:name=".activities.LogWindow"
+            android:name="com.roqos.openvpnlib.activities.LogWindow"
             android:allowTaskReparenting="true"
             android:label="@string/openvpn_log"
             android:launchMode="singleTask" />
-        <activity android:name=".activities.FileSelect" />
+        <activity android:name="com.roqos.openvpnlib.activities.FileSelect" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.roqos.openvpnlib.activities.MainActivity"
             tools:ignore="ExportedActivity">
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+                <!--<category android:name="android.intent.category.LEANBACK_LAUNCHER" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
         <service
-            android:name=".core.OpenVPNService"
-            android:permission="android.permission.BIND_VPN_SERVICE" >
+            android:name="com.roqos.openvpnlib.core.OpenVPNService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:process=":openvpn">
             <intent-filter>
                 <action android:name="android.net.VpnService" />
             </intent-filter>
-            <meta-data android:name="android.net.VpnService.SUPPORTS_ALWAYS_ON" android:value="true"/>
+            <!--<meta-data android:name="android.net.VpnService.SUPPORTS_ALWAYS_ON" android:value="true"/>-->
         </service>
-
         <service
-            android:name=".api.ExternalOpenVPNService"
+            android:name="com.roqos.openvpnlib.api.ExternalOpenVPNService"
+            android:process=":openvpn"
             tools:ignore="ExportedService">
-
             <intent-filter>
                 <action android:name="com.roqos.openvpnlib.api.IOpenVPNAPIService" />
             </intent-filter>
         </service>
+        <service
+            android:name="com.roqos.openvpnlib.core.OpenVPNStatusService"
+            android:exported="false"
+            android:process=":openvpn" />
+        <service
+            android:name="com.roqos.openvpnlib.OpenVPNTileService"
+            android:icon="@drawable/ic_quick"
+            android:label="@string/qs_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:value="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
 
-        <activity android:name=".api.GrantPermissionsActivity">
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="false" />
+
+        </service>
+
+        <activity android:name="com.roqos.openvpnlib.api.GrantPermissionsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".api.ConfirmDialog">
+        <activity android:name="com.roqos.openvpnlib.api.ConfirmDialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".OnBootReceiver">
+        <receiver android:name="com.roqos.openvpnlib.OnBootReceiver">
             <intent-filter android:priority="999">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".activities.ConfigConverter"
+            android:name="com.roqos.openvpnlib.activities.ConfigConverter"
             android:excludeFromRecents="true"
             android:label="Convert Config File"
             android:taskAffinity=".ConfigConverter"
             android:uiOptions="splitActionBarWhenNarrow"
             tools:ignore="ExportedActivity">
-            <intent-filter android:label="@string/import_config">
+            <intent-filter
+                android:label="@string/import_config"
+                tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:mimeType="application/x-openvpn-profile" />
             </intent-filter>
-            <intent-filter android:label="@string/import_config">
+            <intent-filter
+                android:label="@string/import_config"
+                tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -136,6 +159,7 @@
 
                 <data android:mimeType="*/*" />
                 <data android:scheme="file" />
+                <data android:scheme="content" />
                 <data android:host="*" />
                 <data android:pathPattern=".*..*..*..*..*.ovpn" />
                 <data android:pathPattern=".*..*..*..*.ovpn" />
@@ -145,7 +169,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LaunchVPN"
+            android:name="com.roqos.openvpnlib.LaunchVPN"
             android:autoRemoveFromRecents="true"
             android:excludeFromRecents="true"
             android:label="@string/vpn_launch_title"
@@ -158,22 +182,35 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
         <activity
-            android:name=".activities.CreateShortcuts"
+            android:name=".api.Intents"
+            android:autoRemoveFromRecents="true"
+            android:excludeFromRecents="true"
+            android:label="@string/vpn_launch_title"
+            android:taskAffinity=".LaunchVPN"
+            android:theme="@style/blinkt.dialog"
+            tools:ignore="ExportedActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.roqos.openvpnlib.activities.CreateShortcuts"
             android:excludeFromRecents="true"
             android:label="@string/vpn_shortcut"
             android:taskAffinity=".CreateShortcuts"
             android:theme="@android:style/Theme.DeviceDefault.Light.DialogWhenLarge">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <provider
-            android:name=".FileProvider"
+            android:name="com.roqos.openvpnlib.FileProvider"
             android:authorities="com.roqos.openvpnlib.FileProvider"
             android:exported="true"
             android:grantUriPermissions="true"
@@ -186,6 +223,28 @@
             </intent-filter>
         </receiver>
         -->
+        <activity
+            android:name="com.roqos.openvpnlib.activities.OpenSSLSpeed"
+            android:label="@string/title_activity_open_sslspeed"
+            android:parentActivityName="com.roqos.openvpnlib.activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.roqos.openvpnlib.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.roqos.openvpnlib.api.RemoteAction"
+            />
+        <activity-alias
+            android:exported="true"
+            android:name="com.roqos.openvpnlib.api.DisconnectVPN"
+            android:targetActivity="com.roqos.openvpnlib.api.RemoteAction" />
+
+        <activity-alias
+            android:exported="true"
+            android:name="com.roqos.openvpnlib.api.ConnectVPN"
+            android:targetActivity="com.roqos.openvpnlib.api.RemoteAction" />
+
+
     </application>
 
 </manifest>

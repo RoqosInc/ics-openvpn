@@ -10,11 +10,14 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.support.v4.content.IntentCompat;
 import android.support.v4n.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +26,7 @@ import com.roqos.openvpnlib.R;
 import com.roqos.openvpnlib.fragments.AboutFragment;
 import com.roqos.openvpnlib.fragments.FaqFragment;
 import com.roqos.openvpnlib.fragments.GeneralSettings;
+import com.roqos.openvpnlib.fragments.GraphFragment;
 import com.roqos.openvpnlib.fragments.LogFragment;
 import com.roqos.openvpnlib.fragments.SendDumpFragment;
 import com.roqos.openvpnlib.fragments.VPNProfileList;
@@ -36,12 +40,10 @@ public class MainActivity extends BaseActivity {
     private ViewPager mPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
     private SlidingTabLayout mSlidingTabLayout;
+    private TabBarView mTabs;
 
-    protected void onCreate(android.os.Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.main_activity);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -53,15 +55,16 @@ public class MainActivity extends BaseActivity {
         }
 
 
-
         mPagerAdapter.addTab(R.string.vpn_list_title, VPNProfileList.class);
+        mPagerAdapter.addTab(R.string.graph, GraphFragment.class);
 
         mPagerAdapter.addTab(R.string.generalsettings, GeneralSettings.class);
         mPagerAdapter.addTab(R.string.faq, FaqFragment.class);
 
-        if(SendDumpFragment.getLastestDump(this)!=null) {
+        if (SendDumpFragment.getLastestDump(this) != null) {
             mPagerAdapter.addTab(R.string.crashdump, SendDumpFragment.class);
         }
+
 
         if (isDirectToTV())
             mPagerAdapter.addTab(R.string.openvpn_log, LogFragment.class);
@@ -69,24 +72,8 @@ public class MainActivity extends BaseActivity {
         mPagerAdapter.addTab(R.string.about, AboutFragment.class);
         mPager.setAdapter(mPagerAdapter);
 
-        TabBarView tabs = (TabBarView) findViewById(R.id.sliding_tabs);
-        tabs.setViewPager(mPager);
-
-       // requestDozeDisable();
-	}
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private void requestDozeDisable() {
-        Intent intent = new Intent();
-        String packageName = getPackageName();
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        if (pm.isIgnoringBatteryOptimizations(packageName))
-            intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-        else {
-            intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            intent.setData(Uri.parse("package:" + packageName));
-        }
-        startActivity(intent);
+        mTabs = (TabBarView) findViewById(R.id.sliding_tabs);
+        mTabs.setViewPager(mPager);
     }
 
     private static final String FEATURE_TELEVISION = "android.hardware.type.television";
@@ -103,6 +90,17 @@ public class MainActivity extends BaseActivity {
         toolbar.setElevation(0);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getIntent()!=null) {
+            String page = getIntent().getStringExtra("PAGE");
+            if ("graph".equals(page)) {
+                mPager.setCurrentItem(1);
+            }
+            setIntent(null);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,6 +125,7 @@ public class MainActivity extends BaseActivity {
 
 
 	}
+
 
 
 }

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2012-2017 Arne Schwabe
+  ~ Distributed under the GNU GPL v2 with additional terms. For full terms see the file doc/LICENSE.txt
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.roqos.openvpnlib.remote" >
+    package="com.roqos.openvpnlib.remote">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.roqos.openvpnlib.remote.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

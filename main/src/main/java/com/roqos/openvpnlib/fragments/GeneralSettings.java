@@ -5,30 +5,39 @@
 
 package com.roqos.openvpnlib.fragments;
 import java.io.File;
+import java.util.Collection;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 
 import com.roqos.openvpnlib.BuildConfig;
 import com.roqos.openvpnlib.R;
+import com.roqos.openvpnlib.VpnProfile;
+import com.roqos.openvpnlib.activities.OpenSSLSpeed;
 import com.roqos.openvpnlib.api.ExternalAppDatabase;
+import com.roqos.openvpnlib.core.ProfileManager;
 
-public class GeneralSettings extends PreferenceFragment implements OnPreferenceClickListener, OnClickListener {
+
+public class GeneralSettings extends PreferenceFragment implements OnPreferenceClickListener, OnClickListener, Preference.OnPreferenceChangeListener {
 
 	private ExternalAppDatabase mExtapp;
+	private ListPreference mAlwaysOnVPN;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,8 @@ public class GeneralSettings extends PreferenceFragment implements OnPreferenceC
 
 
         PreferenceCategory devHacks = (PreferenceCategory) findPreference("device_hacks");
+		mAlwaysOnVPN = (ListPreference) findPreference("alwaysOnVpn");
+        mAlwaysOnVPN.setOnPreferenceChangeListener(this);
 
 
         Preference loadtun = findPreference("loadTunModule");
@@ -53,24 +64,60 @@ public class GeneralSettings extends PreferenceFragment implements OnPreferenceC
             devHacks.removePreference(cm9hack);
         }
 
+        CheckBoxPreference useInternalFS = (CheckBoxPreference) findPreference("useInternalFileSelector");
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT)
+		{
+			devHacks.removePreference(useInternalFS);
+		}
+
 		mExtapp = new ExternalAppDatabase(getActivity());
 		Preference clearapi = findPreference("clearapi");
 		clearapi.setOnPreferenceClickListener(this);
 
+		findPreference("osslspeed").setOnPreferenceClickListener(this);
 
         if(devHacks.getPreferenceCount()==0)
             getPreferenceScreen().removePreference(devHacks);
 
-        if (!"ovpn3".equals(BuildConfig.FLAVOR)) {
+        if (!BuildConfig.openvpn3) {
             PreferenceCategory appBehaviour = (PreferenceCategory) findPreference("app_behaviour");
-            appBehaviour.removePreference(findPreference("ovpn3"));
+			CheckBoxPreference ovpn3 = (CheckBoxPreference) findPreference("ovpn3");
+			ovpn3.setEnabled(false);
+			ovpn3.setChecked(false);
         }
 
 
 		setClearApiSummary();
 	}
 
-	private void setClearApiSummary() {
+	@Override
+	public void onResume() {
+		super.onResume();
+
+
+
+
+        VpnProfile vpn = ProfileManager.getAlwaysOnVPN(getActivity());
+		StringBuffer sb = new StringBuffer(getString(R.string.defaultvpnsummary));
+		sb.append('\n');
+        if (vpn== null)
+            sb.append(getString(R.string.novpn_selected));
+        else
+           sb.append(getString(R.string.vpnselected, vpn.getName()));
+		mAlwaysOnVPN.setSummary(sb.toString());
+
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference== mAlwaysOnVPN) {
+            VpnProfile vpn = ProfileManager.get(getActivity(), (String) newValue);
+            mAlwaysOnVPN.setSummary(vpn.getName());
+        }
+        return true;
+    }
+
+    private void setClearApiSummary() {
 		Preference clearapi = findPreference("clearapi");
 
 		if(mExtapp.getExtAppList().isEmpty()) {
@@ -118,6 +165,8 @@ public class GeneralSettings extends PreferenceFragment implements OnPreferenceC
 			builder.setNegativeButton(android.R.string.cancel, null);
 			builder.setMessage(getString(R.string.clearappsdialog,getExtAppList("\n")));
 			builder.show();
+		} else if (preference.getKey().equals("osslspeed")) {
+			startActivity(new Intent(getActivity(), OpenSSLSpeed.class));
 		}
 			
 		return true;

@@ -51,14 +51,19 @@ public class ShowConfigFragment extends Fragment {
 		new Thread() {
 			public void run() {
 				/* Add a few newlines to make the textview scrollable past the FAB */
-				configtext = vp.getConfigFile(getActivity(),false) + "\n\n\n";
+				try {
+
+					configtext = vp.getConfigFile(getActivity(), VpnProfile.doUseOpenVPN3(getActivity())) + "\n\n\n";
+				} catch (Exception e) {
+					e.printStackTrace();
+					configtext = "Error generating config file: " + e.getLocalizedMessage();
+				}
 				getActivity().runOnUiThread(new Runnable() {
-					
 					@Override
 					public void run() {
 						cv.setText(configtext);
-                        if (mfabButton!=null)
-						    mfabButton.setVisibility(View.VISIBLE);
+						if (mfabButton!=null)
+							mfabButton.setVisibility(View.VISIBLE);
 					}
 				});
 				
@@ -102,11 +107,15 @@ public class ShowConfigFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        String profileUUID = getArguments().getString(getActivity().getPackageName() + ".profileUUID");
-        final VpnProfile vp = ProfileManager.get(getActivity(),profileUUID);
-        int check=vp.checkProfile(getActivity());
+		populateConfigText();
+    }
 
-        if(check!=R.string.no_error_found) {
+	private void populateConfigText() {
+		String profileUUID = getArguments().getString(getActivity().getPackageName() + ".profileUUID");
+		final VpnProfile vp = ProfileManager.get(getActivity(),profileUUID);
+		int check=vp.checkProfile(getActivity());
+
+		if(check != R.string.no_error_found) {
             mConfigView.setText(check);
             configtext = getString(check);
         }
@@ -116,5 +125,13 @@ public class ShowConfigFragment extends Fragment {
             mConfigView.setText("Generating config...");
             startGenConfig(vp, mConfigView);
         }
-    }
+	}
+
+	@Override
+	public void setUserVisibleHint(boolean visible)
+	{
+		super.setUserVisibleHint(visible);
+		if (visible && isResumed())
+			populateConfigText();
+	}
 }

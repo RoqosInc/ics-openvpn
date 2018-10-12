@@ -6,8 +6,10 @@
 package com.roqos.openvpnlib.fragments;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -25,6 +27,7 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import com.roqos.openvpnlib.VpnProfile;
+import com.roqos.openvpnlib.core.Preferences;
 
 public class Utils {
 
@@ -49,10 +52,12 @@ public class Utils {
                 supportedMimeTypes.add("application/x-x509-ca-cert");
                 supportedMimeTypes.add("application/x-x509-user-cert");
                 supportedMimeTypes.add("application/x-pem-file");
+                supportedMimeTypes.add("application/pkix-cert");
                 supportedMimeTypes.add("text/plain");
 
                 extensions.add("pem");
                 extensions.add("crt");
+                extensions.add("cer");
                 break;
             case KEYFILE:
                 i.setType("application/x-pem-file");
@@ -86,6 +91,12 @@ public class Utils {
                 extensions.add("conf");
                 break;
 
+            case CRL_FILE:
+                supportedMimeTypes.add("application/x-pkcs7-crl");
+                supportedMimeTypes.add("application/pkix-crl");
+                extensions.add("crl");
+                break;
+
             case USERPW_FILE:
                 i.setType("text/plain");
                 supportedMimeTypes.add("text/plain");
@@ -111,7 +122,9 @@ public class Utils {
 
         /* Samsung has decided to do something strange, on stock Android GET_CONTENT opens the document UI */
         /* fist try with documentsui */
-        i.setPackage("com.android.documentsui");
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N)
+            i.setPackage("com.android.documentsui");
+
 
 
 
@@ -138,6 +151,12 @@ public class Utils {
         return i;
     }
 
+    public static boolean alwaysUseOldFileChooser(Context c)
+    {
+        SharedPreferences prefs = Preferences.getDefaultSharedPreferences(c);
+
+        return prefs.getBoolean("useInternalFileSelector", false);
+    }
 
     public static boolean isIntentAvailable(Context context, Intent i) {
         final PackageManager packageManager = context.getPackageManager();

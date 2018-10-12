@@ -13,6 +13,8 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 import com.roqos.openvpnlib.R;
 import com.roqos.openvpnlib.VpnProfile;
 
@@ -28,18 +30,23 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
     private CheckBoxPreference mPersistent;
     private ListPreference mConnectRetrymax;
     private EditTextPreference mConnectRetry;
+    private EditTextPreference mConnectRetryMaxTime;
+    private EditTextPreference mTunMtu;
 
     public void onCreateBehaviour(Bundle savedInstanceState) {
 
         mPersistent = (CheckBoxPreference) findPreference("usePersistTun");
         mConnectRetrymax = (ListPreference) findPreference("connectretrymax");
         mConnectRetry = (EditTextPreference) findPreference("connectretry");
+        mConnectRetryMaxTime = (EditTextPreference) findPreference("connectretrymaxtime");
+
         mPeerInfo = (CheckBoxPreference) findPreference("peerInfo");
 
         mConnectRetrymax.setOnPreferenceChangeListener(this);
         mConnectRetrymax.setSummary("%s");
 
         mConnectRetry.setOnPreferenceChangeListener(this);
+        mConnectRetryMaxTime.setOnPreferenceChangeListener(this);
 
 
 
@@ -54,6 +61,10 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
 
         mConnectRetry.setText(mProfile.mConnectRetry);
         onPreferenceChange(mConnectRetry, mProfile.mConnectRetry);
+
+        mConnectRetryMaxTime.setText(mProfile.mConnectRetryMaxTime);
+        onPreferenceChange(mConnectRetryMaxTime, mProfile.mConnectRetryMaxTime);
+
     }
 
 
@@ -62,6 +73,7 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
         mProfile.mPersistTun = mPersistent.isChecked();
         mProfile.mConnectRetry = mConnectRetry.getText();
         mProfile.mPushPeerInfo = mPeerInfo.isChecked();
+        mProfile.mConnectRetryMaxTime = mConnectRetryMaxTime.getText();
     }
 
 
@@ -79,9 +91,14 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
 
         } else if (preference == mConnectRetry) {
             if(newValue==null || newValue=="")
-                newValue="5";
+                newValue="2";
             mConnectRetry.setSummary(String.format("%s s", newValue));
+        } else if (preference == mConnectRetryMaxTime) {
+            if(newValue==null || newValue=="")
+                newValue="300";
+            mConnectRetryMaxTime.setSummary(String.format("%s s", newValue));
         }
+
 
         return true;
     }
@@ -101,6 +118,9 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
         mMssFixCheckBox = (CheckBoxPreference) findPreference("mssFix");
         mMssFixValue = (EditTextPreference) findPreference("mssFixValue");
         mMssFixValue.setOnPreferenceChangeListener(this);
+        mTunMtu = (EditTextPreference) findPreference("tunmtu");
+        mTunMtu.setOnPreferenceChangeListener(this);;
+
         onCreateBehaviour(savedInstanceState);
 		loadSettings();
 
@@ -121,12 +141,29 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
             mMssFixCheckBox.setChecked(true);
             setMssSummary(mProfile.mMssFix);
         }
+
+
+        int tunmtu = mProfile.mTunMtu;
+        if (mProfile.mTunMtu < 48)
+            tunmtu = 1500;
+
+        mTunMtu.setText(String.valueOf(tunmtu));
+        setMtuSummary(tunmtu);
+
+
         loadSettingsBehaviour();
 
     }
 
     private void setMssSummary(int value) {
-        mMssFixValue.setSummary(String.format("Configured MSS value: %d", value));
+        mMssFixValue.setSummary(String.format(Locale.getDefault(),"Configured MSS value: %d", value));
+    }
+
+    private void setMtuSummary(int value) {
+        if (value == 1500)
+            mTunMtu.setSummary(String.format(Locale.getDefault(),"Using default (1500) MTU", value));
+        else
+            mTunMtu.setSummary(String.format(Locale.getDefault(),"Configured MTU value: %d", value));
     }
 
     protected void saveSettings() {
@@ -139,6 +176,7 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
         else
             mProfile.mMssFix=0;
 
+        mProfile.mTunMtu = Integer.parseInt(mTunMtu.getText());
         saveSettingsBehaviour();
 	}
 
@@ -154,6 +192,17 @@ public class Settings_Obscure extends OpenVpnPreferencesFragment implements OnPr
 
             } catch(NumberFormatException e) {
                 Toast.makeText(getActivity(), R.string.mssfix_invalid_value, Toast.LENGTH_LONG).show();
+                return false;
+            }
+        else if (preference.getKey().equals("tunmtu"))
+            try {
+                int v = Integer.parseInt((String) newValue);
+                if (v < 48 || v > 9000)
+                    throw new NumberFormatException("mtu value");
+                setMtuSummary(v);
+
+            } catch(NumberFormatException e) {
+                Toast.makeText(getActivity(), R.string.mtu_invalid_value, Toast.LENGTH_LONG).show();
                 return false;
             }
         return onPreferenceChangeBehaviour(preference, newValue);

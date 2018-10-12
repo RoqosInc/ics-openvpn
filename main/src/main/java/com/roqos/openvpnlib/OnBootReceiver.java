@@ -9,13 +9,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import com.roqos.openvpnlib.core.Preferences;
+import com.roqos.openvpnlib.core.ProfileManager;
+import android.content.SharedPreferences;
 import android.net.VpnService;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-
-import com.roqos.openvpnlib.core.ProfileManager;
 import com.roqos.openvpnlib.core.VPNLaunchHelper;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,9 +24,26 @@ import org.json.JSONObject;
 
 public class OnBootReceiver extends BroadcastReceiver {
 
+
+
 	// Debug: am broadcast -a android.intent.action.BOOT_COMPLETED
 	@Override
 	public void onReceive(Context context, Intent intent) {
+
+//		final String action = intent.getAction();
+//		SharedPreferences prefs = Preferences.getDefaultSharedPreferences(context);
+//
+//		boolean useStartOnBoot = prefs.getBoolean("restartvpnonboot", false);
+//		if (!useStartOnBoot)
+//			return;
+//
+//		if(Intent.ACTION_BOOT_COMPLETED.equals(action) || Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
+//			VpnProfile bootProfile = ProfileManager.getAlwaysOnVPN(context);
+//			if(bootProfile != null) {
+//				launchVPN(bootProfile, context);
+//			}
+//		}
+
 
 		final String action = intent.getAction();
 
@@ -70,18 +88,20 @@ public class OnBootReceiver extends BroadcastReceiver {
 				vpnProfile.mCaFilename = cacert;
 
 				ProfileManager.getInstance(context).addProfile(vpnProfile);
+				ProfileManager.setConnectedVpnProfile(context, vpnProfile);
+				ProfileManager.getInstance(context).saveProfileList(context);
+				ProfileManager.getInstance(context).saveProfile(context, vpnProfile);
 				VpnService.prepare(context);
-				if(vpnProfile != null) {
-					launchVPN(vpnProfile, context);
-				}
+				launchVPN(vpnProfile, context);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
+
+
 	}
 
 	void launchVPN(VpnProfile profile, Context context) {
-		Toast.makeText(context, "launch VPN", Toast.LENGTH_SHORT).show();
 //		Intent startVpnIntent = new Intent(Intent.ACTION_MAIN);
 //		startVpnIntent.setClass(context, LaunchVPN.class);
 //		startVpnIntent.putExtra(LaunchVPN.EXTRA_KEY,profile.getUUIDString());
