@@ -34,7 +34,7 @@
 #ifdef ENABLE_CRYPTO_MBEDTLS
 #include "ssl_verify_mbedtls.h"
 #endif
-#include "openvpn-plugin.h"
+#include "openvpn-plugin.h.in"
 
 #ifdef ENABLE_PLUGIN
 
