@@ -26,6 +26,7 @@ public class VPNLaunchHelper {
     private static final String MININONPIEVPN = "nopie_openvpn";
     private static final String MINIPIEVPN = "pie_openvpn";
     private static final String OVPNCONFIGFILE = "android.conf";
+    public static String appId = "com.roqos.roqosvpn";
 
 
     private static String writeMiniVPN(Context context) {
@@ -130,12 +131,13 @@ public class VPNLaunchHelper {
 
 
     public static void startOpenVpn(VpnProfile startprofile, Context context) {
-        Log.d("TAG", "startOpenVpn: hehe");
+        Log.d("TAG", "startOpenVpn");
         SharedPreferences sharedPref = context.getSharedPreferences("PREF_LOG_WINDOW", Context.MODE_PRIVATE);
         boolean enable = sharedPref.getBoolean("enable_log", false);
 
         Intent startVPN = startprofile.prepareStartService(context);
         startVPN.putExtra("enable", enable);
+        startVPN.putExtra("appId", appId);
 
         if (startVPN != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

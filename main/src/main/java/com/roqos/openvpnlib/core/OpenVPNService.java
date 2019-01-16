@@ -98,7 +98,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     private long mConnecttime;
     private OpenVPNManagement mManagement;
     private boolean enableLogWindow;
-    public static String APP_ID = "com.roqos.roqosvpn";
+    private static String appId;
 
     private final IBinder mBinder = new IOpenVPNServiceInternal.Stub() {
 
@@ -416,7 +416,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     PendingIntent getGraphPendingIntent() {
         // Let the configure Button show the Log
-        Intent intent = getPackageManager().getLaunchIntentForPackage(OpenVPNService.APP_ID);
+        Intent intent = getPackageManager().getLaunchIntentForPackage(appId);
         if(enableLogWindow) {
             intent = new Intent(getApplicationContext(), LogWindow.class);
         }
@@ -493,6 +493,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("TAG", "onStartCommand: I'm here");
         enableLogWindow = intent.getBooleanExtra("enable", false);
+        appId = intent.getStringExtra("appId");
 
         if (intent != null && intent.getBooleanExtra(ALWAYS_SHOW_NOTIFICATION, false))
             mNotificationAlwaysVisible = true;
@@ -657,9 +658,14 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
 
     private void stopOldOpenVPNProcess() {
+        Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess0");
         if (mManagement != null) {
-            if (mOpenVPNThread != null)
+            Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess");
+            if (mOpenVPNThread != null) {
+                Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess1");
                 ((OpenVPNThread) mOpenVPNThread).setReplaceConnection();
+            }
+
             if (mManagement.stopVPN(true)) {
                 // an old was asked to exit, wait 1s
                 try {

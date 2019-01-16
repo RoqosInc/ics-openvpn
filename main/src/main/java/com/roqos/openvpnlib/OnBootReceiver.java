@@ -15,6 +15,7 @@ import com.roqos.openvpnlib.core.ProfileManager;
 import android.content.SharedPreferences;
 import android.net.VpnService;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 import com.roqos.openvpnlib.core.VPNLaunchHelper;
 import org.json.JSONArray;
@@ -65,11 +66,11 @@ public class OnBootReceiver extends BroadcastReceiver {
 				username = user.getString("username");
 				password = user.getString("password");
 				cacert = "[[INLINE]]" + server.getString("CACertificate");
-				tlscrypt = "[[INLINE]]" + server.getString("tlsCrypt");
+				if(server.has("tlsCrypt")) tlscrypt = server.getString("tlsCrypt");
 
 				VpnProfile vpnProfile = new VpnProfile("Roqos VPN");
 				vpnProfile.clearDefaults();
-				vpnProfile.mServerName = servername;
+				vpnProfile.mServerName = "unknown";
 				vpnProfile.mAuth = "SHA1";
 				vpnProfile.mCipher = "AES-256-CBC";
 				vpnProfile.mAuthenticationType = 3;
@@ -86,9 +87,11 @@ public class OnBootReceiver extends BroadcastReceiver {
 				vpnProfile.mConnections[0].mServerPort = serverport;
 				vpnProfile.mConnections[0].mUseUdp = protocol.equals("UDP");
 				vpnProfile.mCaFilename = cacert;
-				vpnProfile.mUseTLSAuth = true;
-				vpnProfile.mTLSAuthDirection = "tls-crypt";
-				vpnProfile.mTLSAuthFilename = tlscrypt;
+				if(tlscrypt != "") {
+					vpnProfile.mUseTLSAuth = true;
+					vpnProfile.mTLSAuthDirection = "tls-crypt";
+					vpnProfile.mTLSAuthFilename = "[[INLINE]]" + tlscrypt;
+				}
 
 				ProfileManager.getInstance(context).addProfile(vpnProfile);
 				ProfileManager.setConnectedVpnProfile(context, vpnProfile);
@@ -100,8 +103,6 @@ public class OnBootReceiver extends BroadcastReceiver {
 				e.printStackTrace();
 			}
 		}
-
-
 	}
 
 	void launchVPN(VpnProfile profile, Context context) {
