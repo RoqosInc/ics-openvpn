@@ -54,7 +54,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 
 			boolean useStartOnBoot = prefs.getBoolean("restartvpnonboot", false);
 			if(!useStartOnBoot) return;
-			String protocol="", servername="", serverport="", username="vpnuser", password="password1", cacert="", clientcert="", clientkey="", tlscrypt="";
+			String protocol="", servername="", serverport="", username="vpnuser", password="password1", cacert="", clientcert="", clientkey="", tlscrypt="", renegSec = "";
 			try {
 				String vpnConfigStr = prefs.getString("vpnconfig", "");
 				JSONArray vpnConfig = new JSONArray(vpnConfigStr);
@@ -66,7 +66,8 @@ public class OnBootReceiver extends BroadcastReceiver {
 				username = user.getString("username");
 				password = user.getString("password");
 				cacert = "[[INLINE]]" + server.getString("CACertificate");
-				if(server.has("tlsCrypt")) tlscrypt = server.getString("tlsCrypt");
+				if (server.has("tlsCrypt")) tlscrypt = server.getString("tlsCrypt");
+				if (server.has("renegSec")) renegSec = server.getString("renegSec");
 
 				VpnProfile vpnProfile = new VpnProfile("Roqos VPN");
 				vpnProfile.clearDefaults();
@@ -87,11 +88,12 @@ public class OnBootReceiver extends BroadcastReceiver {
 				vpnProfile.mConnections[0].mServerPort = serverport;
 				vpnProfile.mConnections[0].mUseUdp = protocol.equals("UDP");
 				vpnProfile.mCaFilename = cacert;
-				if(tlscrypt != "") {
+				if (!tlscrypt.isEmpty()) {
 					vpnProfile.mUseTLSAuth = true;
 					vpnProfile.mTLSAuthDirection = "tls-crypt";
 					vpnProfile.mTLSAuthFilename = "[[INLINE]]" + tlscrypt;
 				}
+				if (!renegSec.isEmpty()) { vpnProfile.mRenegSec = renegSec; }
 
 				ProfileManager.getInstance(context).addProfile(vpnProfile);
 				ProfileManager.setConnectedVpnProfile(context, vpnProfile);

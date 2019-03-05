@@ -161,6 +161,7 @@ public class VpnProfile implements Serializable, Cloneable {
     // set members to default values
     private UUID mUuid;
     private int mProfileVersion;
+    public String mRenegSec;
 
 
     public VpnProfile(String name) {
@@ -191,7 +192,7 @@ public class VpnProfile implements Serializable, Cloneable {
     public static boolean doUseOpenVPN3(Context c) {
         SharedPreferences prefs = Preferences.getDefaultSharedPreferences(c);
         boolean useOpenVPN3 = prefs.getBoolean("ovpn3", false);
-        if (!BuildConfig.openvpn3)
+        if (!com.roqos.openvpnlib.BuildConfig.openvpn3)
             useOpenVPN3 = false;
         return useOpenVPN3;
     }
@@ -457,12 +458,19 @@ public class VpnProfile implements Serializable, Cloneable {
                 break;
             case VpnProfile.TYPE_USERPASS:
                 cfg.append("auth-user-pass\n");
+
+                // VPN-In/Guest TLS renegotiation
+                if (mRenegSec != null) {
+                    cfg.append("reneg-sec " + mRenegSec + "\n");
+                }
+
                 cfg.append(insertFileData("ca", mCaFilename));
                 if (configForOvpn3) {
                     // OpenVPN 3 needs to be told that a client certificate is not required
                     cfg.append("client-cert-not-required\n");
                 }
         }
+
 
         if (isUserPWAuth()) {
             if (mAuthRetry == AUTH_RETRY_NOINTERACT)
