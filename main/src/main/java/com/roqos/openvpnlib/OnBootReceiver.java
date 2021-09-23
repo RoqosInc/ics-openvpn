@@ -94,6 +94,7 @@ public class OnBootReceiver extends BroadcastReceiver {
 					vpnProfile.mTLSAuthFilename = "[[INLINE]]" + tlscrypt;
 				}
 				if (!renegSec.isEmpty()) { vpnProfile.mRenegSec = renegSec; }
+				if (!lPort.isEmpty()) { vpnProfile.mLPort = lPort; }
 
 				ProfileManager.getInstance(context).addProfile(vpnProfile);
 				ProfileManager.setConnectedVpnProfile(context, vpnProfile);

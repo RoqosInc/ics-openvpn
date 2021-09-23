@@ -162,6 +162,7 @@ public class VpnProfile implements Serializable, Cloneable {
     private UUID mUuid;
     private int mProfileVersion;
     public String mRenegSec;
+    public String mLPort;
 
 
     public VpnProfile(String name) {
@@ -462,6 +463,10 @@ public class VpnProfile implements Serializable, Cloneable {
                 // VPN-In/Guest TLS renegotiation
                 if (mRenegSec != null) {
                     cfg.append("reneg-sec " + mRenegSec + "\n");
+                }
+
+                if (mLPort != null) {
+                    cfg.append("lport " + mLPort + "\n");
                 }
 
                 cfg.append(insertFileData("ca", mCaFilename));
