@@ -465,10 +465,6 @@ public class VpnProfile implements Serializable, Cloneable {
                     cfg.append("reneg-sec " + mRenegSec + "\n");
                 }
 
-                if (mLPort != null) {
-                    cfg.append("lport " + mLPort + "\n");
-                }
-
                 cfg.append(insertFileData("ca", mCaFilename));
                 if (configForOvpn3) {
                     // OpenVPN 3 needs to be told that a client certificate is not required
@@ -571,6 +567,10 @@ public class VpnProfile implements Serializable, Cloneable {
 
         if (mNobind)
             cfg.append("nobind\n");
+
+        if (mLPort != null) {
+            cfg.append("lport " + mLPort + "\n");
+        }
 
 
         // Authentication
