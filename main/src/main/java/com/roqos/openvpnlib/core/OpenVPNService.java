@@ -491,7 +491,6 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("TAG", "onStartCommand: I'm here");
         enableLogWindow = intent.getBooleanExtra("enable", false);
         appId = intent.getStringExtra("appId");
 

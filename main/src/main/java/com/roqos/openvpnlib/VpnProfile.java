@@ -162,7 +162,7 @@ public class VpnProfile implements Serializable, Cloneable {
     private UUID mUuid;
     private int mProfileVersion;
     public String mRenegSec;
-    public String mLPort;
+    public String mLPort = "";
 
 
     public VpnProfile(String name) {
@@ -255,6 +255,7 @@ public class VpnProfile implements Serializable, Cloneable {
         mAllowLocalLAN = true;
         mPushPeerInfo = false;
         mMssFix = 0;
+        mLPort = "";
     }
 
     public UUID getUUID() {
@@ -309,6 +310,10 @@ public class VpnProfile implements Serializable, Cloneable {
 
         conn.mServerName = mServerName;
         conn.mServerPort = mServerPort;
+
+        if(!mLPort.isEmpty())
+            conn.mLPort = mLPort;
+
         conn.mUseUdp = mUseUdp;
         conn.mCustomConfiguration = "";
 
@@ -567,11 +572,6 @@ public class VpnProfile implements Serializable, Cloneable {
 
         if (mNobind)
             cfg.append("nobind\n");
-
-        if (mLPort != null) {
-            cfg.append("lport " + mLPort + "\n");
-        }
-
 
         // Authentication
         if (mAuthenticationType != TYPE_STATICKEYS) {

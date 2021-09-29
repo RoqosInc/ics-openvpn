@@ -27,6 +27,8 @@ public class Connection implements Serializable, Cloneable {
     public String mProxyAuthUser = null;
     public String mProxyAuthPassword = null;
 
+    public String mLPort = "";
+
     public enum ProxyType {
         NONE,
         HTTP,
@@ -41,10 +43,13 @@ public class Connection implements Serializable, Cloneable {
         String cfg = "";
 
         // Server Address
+        if(!mLPort.isEmpty())
+            cfg += "lport " + mLPort +"\n";
         cfg += "remote ";
         cfg += mServerName;
         cfg += " ";
         cfg += mServerPort;
+
         if (mUseUdp)
             cfg += " udp\n";
         else
