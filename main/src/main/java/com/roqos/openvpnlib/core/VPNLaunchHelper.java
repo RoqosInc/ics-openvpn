@@ -31,13 +31,17 @@ public class VPNLaunchHelper {
 
     private static String writeMiniVPN(Context context) {
         String[] abis;
+        String nativeAPI = NativeUtils.getNativeAPI();
+        /* Q does not allow executing binaries written in temp directory anymore */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            return new File(context.getApplicationInfo().nativeLibraryDir, "libovpnexec.so").getPath();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             abis = getSupportedABIsLollipop();
         else
             //noinspection deprecation
             abis = new String[]{Build.CPU_ABI, Build.CPU_ABI2};
 
-        String nativeAPI = NativeUtils.getNativeAPI();
         if (!nativeAPI.equals(abis[0])) {
             VpnStatus.logWarning(R.string.abi_mismatch, Arrays.toString(abis), nativeAPI);
             abis = new String[]{nativeAPI};

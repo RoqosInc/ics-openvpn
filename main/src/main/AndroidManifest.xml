@@ -32,7 +32,8 @@
         android:banner="@mipmap/banner_tv"
         android:supportsRtl="true"
         android:theme="@style/blinkt"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        android:extractNativeLibs="true">
 
 
         <meta-data android:name="android.content.APP_RESTRICTIONS"
