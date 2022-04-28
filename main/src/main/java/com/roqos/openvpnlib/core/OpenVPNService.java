@@ -1257,7 +1257,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         openUrlIntent.setData(Uri.parse(url));
         openUrlIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        nbuilder.setContentIntent(PendingIntent.getActivity(this,0, openUrlIntent, 0));
+        nbuilder.setContentIntent(PendingIntent.getActivity(this,0, openUrlIntent, PendingIntent.FLAG_IMMUTABLE));
 
 
         // Try to set the priority available since API 16 (Jellybean)
