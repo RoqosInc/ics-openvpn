@@ -212,7 +212,7 @@
 
         <provider
             android:name="com.roqos.openvpnlib.FileProvider"
-            android:authorities="com.roqos.openvpnlib.FileProvider"
+            android:authorities="com.roqos.sase.FileProvider"
             android:exported="true"
             android:grantUriPermissions="true"
             tools:ignore="ExportedContentProvider" />
