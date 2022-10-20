@@ -491,8 +491,14 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        enableLogWindow = intent.getBooleanExtra("enable", false);
-        appId = intent.getStringExtra("appId");
+        if (intent != null) {
+            enableLogWindow = intent.getBooleanExtra("enable", false);
+            appId           = intent.getStringExtra("appId");
+        }
+        else {
+            enableLogWindow = false;
+            appId           = "com.roqos.sase";
+        }
 
         if (intent != null && intent.getBooleanExtra(ALWAYS_SHOW_NOTIFICATION, false))
             mNotificationAlwaysVisible = true;

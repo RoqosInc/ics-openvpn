@@ -95,8 +95,8 @@ public class SendDumpFragment extends Fragment  {
 			VpnStatus.logError("No Minidump found!");
 		}
 
-		uris.add(Uri.parse("content://com.roqos.openvpnlib.FileProvider/" + ldump.first.getName()));
-		uris.add(Uri.parse("content://com.roqos.openvpnlib.FileProvider/" + ldump.first.getName() + ".log"));
+		uris.add(Uri.parse("content://com.roqos.sase.FileProvider/" + ldump.first.getName()));
+		uris.add(Uri.parse("content://com.roqos.sase.FileProvider/" + ldump.first.getName() + ".log"));
 
 		emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 		emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
