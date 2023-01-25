@@ -70,6 +70,7 @@
 
         <service
             android:name="com.roqos.openvpnlib.core.OpenVPNService"
+            android:exported="true"
             android:permission="android.permission.BIND_VPN_SERVICE"
             android:process=":openvpn">
             <intent-filter>
@@ -79,6 +80,7 @@
         </service>
         <service
             android:name="com.roqos.openvpnlib.api.ExternalOpenVPNService"
+            android:exported="true"
             android:process=":openvpn"
             tools:ignore="ExportedService">
             <intent-filter>
@@ -91,6 +93,7 @@
             android:process=":openvpn" />
         <service
             android:name="com.roqos.openvpnlib.OpenVPNTileService"
+            android:exported="true"
             android:icon="@drawable/ic_quick"
             android:label="@string/qs_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -105,18 +108,21 @@
 
         </service>
 
-        <activity android:name="com.roqos.openvpnlib.api.GrantPermissionsActivity">
+        <activity android:name="com.roqos.openvpnlib.api.GrantPermissionsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.roqos.openvpnlib.api.ConfirmDialog">
+        <activity android:name="com.roqos.openvpnlib.api.ConfirmDialog"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.roqos.openvpnlib.OnBootReceiver">
+        <receiver android:name="com.roqos.openvpnlib.OnBootReceiver"
+            android:exported="true">
             <intent-filter android:priority="999">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
@@ -125,6 +131,7 @@
 
         <activity
             android:name="com.roqos.openvpnlib.activities.ConfigConverter"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="Convert Config File"
             android:taskAffinity=".ConfigConverter"
@@ -171,6 +178,7 @@
         </activity>
         <activity
             android:name="com.roqos.openvpnlib.LaunchVPN"
+            android:exported="true"
             android:autoRemoveFromRecents="true"
             android:excludeFromRecents="true"
             android:label="@string/vpn_launch_title"
@@ -185,6 +193,7 @@
         </activity>
         <activity
             android:name=".api.Intents"
+            android:exported="true"
             android:autoRemoveFromRecents="true"
             android:excludeFromRecents="true"
             android:label="@string/vpn_launch_title"
@@ -199,6 +208,7 @@
         </activity>
         <activity
             android:name="com.roqos.openvpnlib.activities.CreateShortcuts"
+            android:exported="true"
             android:excludeFromRecents="true"
             android:label="@string/vpn_shortcut"
             android:taskAffinity=".CreateShortcuts"
