@@ -164,6 +164,12 @@ public class VpnProfile implements Serializable, Cloneable {
     public String mRenegSec;
     public String mLPort = "";
 
+    // new environment variables
+    public String mClientHostname = "Roqos SASE Client";
+    public String mClientOSVersion = "-";
+    public String mClientAppVersion = "-";
+    public String mClientMAC = "-";
+
 
     public VpnProfile(String name) {
         mUuid = UUID.randomUUID();
@@ -629,8 +635,14 @@ public class VpnProfile implements Serializable, Cloneable {
                 cfg.append("preresolve\n");
         }
 
-        if (mPushPeerInfo)
+        if (mPushPeerInfo) {
             cfg.append("push-peer-info\n");
+            cfg.append(String.format("setenv UV_hostname %s\n", openVpnEscape(mClientHostname)));
+            cfg.append(String.format("setenv UV_kidmode %s\n", openVpnEscape("0")));
+            cfg.append(String.format("setenv UV_os_ver %s\n", openVpnEscape(mClientOSVersion)));
+            cfg.append(String.format("setenv UV_app_ver %s\n", openVpnEscape(mClientAppVersion)));
+            cfg.append(String.format("setenv UV_mac %s\n", openVpnEscape(mClientMAC)));
+        }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         boolean usesystemproxy = prefs.getBoolean("usesystemproxy", true);
