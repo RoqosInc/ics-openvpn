@@ -3,6 +3,7 @@ main/libs/
 main/ovpnlibs/
 main/obj/
 main/.externalNativeBuild/
+main/.cxx/
 .DS_Store
 .navigation
 google-breakpad/
