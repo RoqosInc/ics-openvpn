@@ -497,7 +497,7 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
         }
         else {
             enableLogWindow = false;
-            appId           = "com.roqos.sase";
+            appId           = "com.roqos.roqosvpn";
         }
 
         if (intent != null && intent.getBooleanExtra(ALWAYS_SHOW_NOTIFICATION, false))
