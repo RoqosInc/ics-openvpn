@@ -379,6 +379,7 @@ public class VpnProfile implements Serializable, Cloneable {
 
         //cfg += "verb " + mVerb + "\n";
         cfg.append("verb " + MAXLOGLEVEL + "\n");
+        cfg.append("mute 20\n");
 
         if (mConnectRetryMax == null) {
             mConnectRetryMax = "-1";
