@@ -13,16 +13,29 @@ repositories {
 
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }
+
+    /*sourceSets {
+        main {
+            aidl.srcDirs = ['src/main/aidl']
+        }
+    }*/
+
+    namespace 'com.roqos.openvpnlib.remote'
+
+    dependencies {
+        //implementation project(path: ':main', configuration: 'main') // or 'noovpn3Debug' based on what you need
+    }
+
+    buildFeatures {
+        aidl = true
+    }
 }
 
-dependencies {
-}
