@@ -1,4 +1,6 @@
 cmake_minimum_required(VERSION 3.4.1)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+add_compile_options(-fPIC)
 # Git version string
 
 include(GetGitRevisionDescription.cmake)
@@ -76,9 +78,30 @@ else()
     message ("Not budiling OpenVPN for output dir ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
 endif()
 
+#include_directories(${CMAKE_SOURCE_DIR}/openssl/include)
+#include_directories(${CMAKE_SOURCE_DIR}/openssl-android/include)
+#set(OPENSSL_LIB_DIR ${CMAKE_SOURCE_DIR}/openssl-android/lib)
+#set(OPENSSL_LIBS ${OPENSSL_LIB_DIR}/libssl.a ${OPENSSL_LIB_DIR}/libcrypto.a)
+
+#add_library(prebuilt_ssl STATIC IMPORTED)
+#set_target_properties(prebuilt_ssl PROPERTIES IMPORTED_LOCATION
+#    "${CMAKE_CURRENT_SOURCE_DIR}/openssl-android/lib/libssl.a"
+#)
+
+# Define imported static library for OpenSSL's libcrypto
+#add_library(prebuilt_crypto STATIC IMPORTED)
+#set_target_properties(prebuilt_crypto PROPERTIES IMPORTED_LOCATION
+#    "${CMAKE_CURRENT_SOURCE_DIR}/openssl-android/lib/libcrypto.a"
+#)
+
+
 add_library(opvpnutil SHARED opvpnutil/jniglue.c opvpnutil/scan_ifs.c opvpnutil/sslspeed.c)
 target_compile_definitions(opvpnutil PRIVATE -DTARGET_ARCH_ABI=\"${ANDROID_ABI}\")
 target_link_libraries(opvpnutil log crypto ssl)
+#target_link_libraries(opvpnutil log -lssl -lcrypto)
+#target_link_libraries(opvpnutil log prebuilt_crypto prebuilt_ssl)
+
+
 
 # The magic Jellybean keystore signing hack. Beware dragons and dlsyms magic ahead
 add_library(jbcrypto SHARED jbcrypto/jbcrypto.cpp)
@@ -171,12 +194,14 @@ set(openvpn_srcs
 
 PREPEND(openvpn_srcs_with_path "openvpn" ${openvpn_srcs})  
 add_library(openvpn SHARED ${openvpn_srcs_with_path})
+
 target_include_directories(openvpn PRIVATE
   openvpn-config
   openvpn/src/compat
   openvpn/include
   lzo/include
   openvpn
+  #${CMAKE_SOURCE_DIR}/openssl/include/
   )
 
 target_compile_definitions(openvpn PRIVATE
@@ -190,6 +215,8 @@ target_compile_definitions(openvpn PRIVATE
   -DENABLE_CRYPTO_OPENSSL=1
   )
 target_link_libraries(openvpn crypto ssl lzo)
+#target_link_libraries(openvpn -lssl -lcrypto lzo)
+#target_link_libraries(openvpn prebuilt_crypto prebuilt_ssl lzo)
 
 add_executable(pie_openvpn.${ANDROID_ABI} minivpn/minivpn.c)
 target_compile_options(pie_openvpn.${ANDROID_ABI} PRIVATE -fPIE)
