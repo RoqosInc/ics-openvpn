@@ -53,28 +53,39 @@ task ("generateOpenVPN3Swig" ,type:Exec) {
 }
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion "21.4.7075529"
+    //ndkVersion "29.0.14206865"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
 
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_TOOLCHAIN=clang',
-                        '-DANDROID_STL=c++_static'
+                arguments "-DANDROID_TOOLCHAIN=clang",
+                        "-DANDROID_STL=c++_static",
+                        "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
                 //abiFilters "arm64-v8a"
             }
         }
     }
 
+    /*packagingOptions {
+        jniLibs {
+            // Ensure shared libraries are NOT compressed, which is necessary for alignment
+            useLegacyPackaging = true // Or false, depending on the AGP version, try setting it to false first
+        }
+    }*/
+
     externalNativeBuild {
 
         cmake {
             path "src/main/cpp/CMakeLists.txt"
-            version '3.10.2+'
+            //version '3.10.2+'
+            version "3.22.1"
             //version '4.0.2'
+            //version "4.1.2"
         }
     }
 

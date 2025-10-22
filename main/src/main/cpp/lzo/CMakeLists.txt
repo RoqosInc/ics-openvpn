@@ -8,7 +8,8 @@
 # All Rights Reserved.
 #
 
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+#cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 #
 # simple usage example (Unix):
@@ -57,7 +58,8 @@ if(NOT ENABLE_STATIC AND NOT ENABLE_SHARED)
     set(ENABLE_STATIC ON)
 endif()
 if(ENABLE_SHARED AND WIN32)
-    cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR) # needed for WINDOWS_EXPORT_ALL_SYMBOLS
+    #cmake_minimum_required(VERSION 3.4.3 FATAL_ERROR) # needed for WINDOWS_EXPORT_ALL_SYMBOLS
+    cmake_minimum_required(VERSION 3.10 FATAL_ERROR) # needed for WINDOWS_EXPORT_ALL_SYMBOLS
 endif()
 
 # install directories

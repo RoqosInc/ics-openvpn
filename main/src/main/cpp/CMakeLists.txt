@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.4.1)
+#cmake_minimum_required(VERSION 3.4.1)
+cmake_minimum_required(VERSION 3.10)
+project("ics-openvpn")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_options(-fPIC)
 # Git version string
@@ -73,6 +75,8 @@ if (NOT ${CMAKE_LIBRARY_OUTPUT_DIRECTORY} MATCHES "build/intermediates/cmake/.*n
       -DOPENVPN_SHOW_SESSION_TOKEN
       -DASIO_HAS_STD_STRING_VIEW
       )
+	target_link_options(ovpn3 PRIVATE "-Wl,-z,max-page-size=16384")
+	target_link_options(ovpn3 PRIVATE "-Wl,-z,common-page-size=16384")
     target_link_libraries(ovpn3 mbedtls mbedx509 mbedcrypto lzo lz4)
 else()
     message ("Not budiling OpenVPN for output dir ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
@@ -97,6 +101,8 @@ endif()
 
 add_library(opvpnutil SHARED opvpnutil/jniglue.c opvpnutil/scan_ifs.c opvpnutil/sslspeed.c)
 target_compile_definitions(opvpnutil PRIVATE -DTARGET_ARCH_ABI=\"${ANDROID_ABI}\")
+target_link_options(opvpnutil PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_options(opvpnutil PRIVATE "-Wl,-z,common-page-size=16384")
 target_link_libraries(opvpnutil log crypto ssl)
 #target_link_libraries(opvpnutil log -lssl -lcrypto)
 #target_link_libraries(opvpnutil log prebuilt_crypto prebuilt_ssl)
@@ -105,6 +111,8 @@ target_link_libraries(opvpnutil log crypto ssl)
 
 # The magic Jellybean keystore signing hack. Beware dragons and dlsyms magic ahead
 add_library(jbcrypto SHARED jbcrypto/jbcrypto.cpp)
+target_link_options(jbcrypto PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_options(jbcrypto PRIVATE "-Wl,-z,common-page-size=16384")
 target_link_libraries(jbcrypto log dl)
 target_compile_options(jbcrypto PRIVATE)
 
@@ -214,15 +222,21 @@ target_compile_definitions(openvpn PRIVATE
 target_compile_definitions(openvpn PRIVATE
   -DENABLE_CRYPTO_OPENSSL=1
   )
+target_link_options(openvpn PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_options(openvpn PRIVATE "-Wl,-z,common-page-size=16384")
 target_link_libraries(openvpn crypto ssl lzo)
 #target_link_libraries(openvpn -lssl -lcrypto lzo)
 #target_link_libraries(openvpn prebuilt_crypto prebuilt_ssl lzo)
 
 add_executable(pie_openvpn.${ANDROID_ABI} minivpn/minivpn.c)
 target_compile_options(pie_openvpn.${ANDROID_ABI} PRIVATE -fPIE)
+target_link_options(pie_openvpn.${ANDROID_ABI} PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_options(pie_openvpn.${ANDROID_ABI} PRIVATE "-Wl,-z,common-page-size=16384")
 target_link_libraries(pie_openvpn.${ANDROID_ABI} PRIVATE openvpn -fPIE -pie)
 
 add_executable(nopie_openvpn.${ANDROID_ABI} minivpn/minivpn.c)
+target_link_options(nopie_openvpn.${ANDROID_ABI} PRIVATE "-Wl,-z,max-page-size=16384")
+target_link_options(nopie_openvpn.${ANDROID_ABI} PRIVATE "-Wl,-z,common-page-size=16384")
 target_link_libraries(nopie_openvpn.${ANDROID_ABI} PRIVATE openvpn)
 
 

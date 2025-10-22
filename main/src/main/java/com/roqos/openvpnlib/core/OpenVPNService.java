@@ -665,25 +665,31 @@ public class OpenVPNService extends VpnService implements StateListener, Callbac
 
 
     private void stopOldOpenVPNProcess() {
-        Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess0");
-        if (mManagement != null) {
-            Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess");
-            if (mOpenVPNThread != null) {
-                Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess1");
-                ((OpenVPNThread) mOpenVPNThread).setReplaceConnection();
-            }
 
-            if (mManagement.stopVPN(true)) {
-                // an old was asked to exit, wait 1s
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    //ignore
+        try {
+            Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess0");
+            if (mManagement != null) {
+                Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess");
+                if (mOpenVPNThread != null) {
+                    Log.d("stopOldOpenVPNProcess: ", "stopOldOpenVPNProcess1");
+                    ((OpenVPNThread) mOpenVPNThread).setReplaceConnection();
+                }
+
+                if (mManagement.stopVPN(true)) {
+                    // an old was asked to exit, wait 1s
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        //ignore
+                    }
                 }
             }
-        }
 
-        forceStopOpenVpnProcess();
+            forceStopOpenVpnProcess();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void forceStopOpenVpnProcess() {
